@@ -88,4 +88,9 @@ public class MainManager : MonoBehaviour
             GameOverText.SetActive(true);
         }
     }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
