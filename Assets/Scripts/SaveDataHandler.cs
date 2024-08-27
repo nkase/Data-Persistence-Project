@@ -79,4 +79,15 @@ public class SaveDataHandler : MonoBehaviour
         }
 
     }
+
+    public void ClearSaveData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        File.Delete(path);
+        Debug.Log("Save Data Deleted");
+
+        highScoreName = null;
+        highScore = 0;
+    }
 }

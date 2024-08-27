@@ -30,4 +30,9 @@ public class MainMenuHandler : MonoBehaviour
         Application.Quit(); // original code to quit Unity player
 #endif
     }
+
+    public void ClearSaveDataButton()
+    {
+        SaveDataHandler.Instance.ClearSaveData();
+    }
 }
