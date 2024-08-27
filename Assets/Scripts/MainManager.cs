@@ -12,9 +12,11 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
+    public Text HighScoreText;
+    public GameObject NewHighScoreText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
     
     private bool m_GameOver = false;
 
@@ -36,6 +38,9 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        // put current high score into gui
+        HighScoreText.text = "Best Score: " + SaveDataHandler.Instance.highScoreName + ": " + SaveDataHandler.Instance.highScore;
     }
 
     private void Update()
@@ -65,12 +70,22 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = SaveDataHandler.Instance.playerName + "'s Score : " + m_Points;
     }
 
     public void GameOver()
     {
         m_GameOver = true;
-        GameOverText.SetActive(true);
+
+        // check if high score has been beaten
+        if (m_Points > SaveDataHandler.Instance.highScore)
+        {
+            NewHighScoreText.SetActive(true);
+            SaveDataHandler.Instance.SaveScore(m_Points);
+        }
+        else
+        {
+            GameOverText.SetActive(true);
+        }
     }
 }
